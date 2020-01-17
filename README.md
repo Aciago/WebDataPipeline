@@ -11,18 +11,18 @@ Locate the areas where there's a need to safeguard swimmers, if sharks are not p
 
 ALL Fields \ Important Fields (+++):
 
-Case Number
+Case Number +++
 Date +++
 Year +++
 Type +++
 Country +++
 Area +++
 Location +++
-Activity
+Activity +++
 Name
 Sex
 Age
-Injury 
+Injury +++
 Fatal (Y/N) +++
 Time
 Species
