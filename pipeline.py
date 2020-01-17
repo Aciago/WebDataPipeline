@@ -7,7 +7,9 @@
    "outputs": [],
    "source": [
     "import os\n",
-    "import numpy as np"
+    "import numpy as np\n",
+    "import csv\n",
+    "import pandas as pd"
    ]
   },
   {
@@ -21,18 +23,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "import pymysql\n",
-    "import csv\n",
-    "import pandas as pd"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -41,7 +32,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
@@ -50,7 +41,7 @@
        "(5992, 24)"
       ]
      },
-     "execution_count": 5,
+     "execution_count": 4,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -61,7 +52,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
@@ -94,7 +85,7 @@
        "dtype: int64"
       ]
      },
-     "execution_count": 6,
+     "execution_count": 5,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -105,7 +96,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [
     {
@@ -324,7 +315,7 @@
        "[5 rows x 24 columns]"
       ]
      },
-     "execution_count": 7,
+     "execution_count": 6,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -335,261 +326,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "df.drop(['Case Number', 'Name', 'Sex ', 'Species ', 'pdf', 'href formula', 'href'], axis=1, inplace=True)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 9,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "df.drop(['Case Number.1', 'Case Number.2', 'original order', 'Unnamed: 22', 'Unnamed: 23'], axis=1, inplace=True)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 10,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "df.drop(['Time', 'Investigator or Source', 'Age'], axis=1, inplace=True)\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 11,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/html": [
-       "<div>\n",
-       "<style scoped>\n",
-       "    .dataframe tbody tr th:only-of-type {\n",
-       "        vertical-align: middle;\n",
-       "    }\n",
-       "\n",
-       "    .dataframe tbody tr th {\n",
-       "        vertical-align: top;\n",
-       "    }\n",
-       "\n",
-       "    .dataframe thead th {\n",
-       "        text-align: right;\n",
-       "    }\n",
-       "</style>\n",
-       "<table border=\"1\" class=\"dataframe\">\n",
-       "  <thead>\n",
-       "    <tr style=\"text-align: right;\">\n",
-       "      <th></th>\n",
-       "      <th>Date</th>\n",
-       "      <th>Year</th>\n",
-       "      <th>Type</th>\n",
-       "      <th>Country</th>\n",
-       "      <th>Area</th>\n",
-       "      <th>Location</th>\n",
-       "      <th>Activity</th>\n",
-       "      <th>Injury</th>\n",
-       "      <th>Fatal (Y/N)</th>\n",
-       "    </tr>\n",
-       "  </thead>\n",
-       "  <tbody>\n",
-       "    <tr>\n",
-       "      <td>0</td>\n",
-       "      <td>18-Sep-16</td>\n",
-       "      <td>2016</td>\n",
-       "      <td>Unprovoked</td>\n",
-       "      <td>USA</td>\n",
-       "      <td>Florida</td>\n",
-       "      <td>New Smyrna Beach, Volusia County</td>\n",
-       "      <td>Surfing</td>\n",
-       "      <td>Minor injury to thigh</td>\n",
-       "      <td>N</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <td>1</td>\n",
-       "      <td>18-Sep-16</td>\n",
-       "      <td>2016</td>\n",
-       "      <td>Unprovoked</td>\n",
-       "      <td>USA</td>\n",
-       "      <td>Florida</td>\n",
-       "      <td>New Smyrna Beach, Volusia County</td>\n",
-       "      <td>Surfing</td>\n",
-       "      <td>Lacerations to hands</td>\n",
-       "      <td>N</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <td>2</td>\n",
-       "      <td>18-Sep-16</td>\n",
-       "      <td>2016</td>\n",
-       "      <td>Unprovoked</td>\n",
-       "      <td>USA</td>\n",
-       "      <td>Florida</td>\n",
-       "      <td>New Smyrna Beach, Volusia County</td>\n",
-       "      <td>Surfing</td>\n",
-       "      <td>Lacerations to lower leg</td>\n",
-       "      <td>N</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <td>3</td>\n",
-       "      <td>17-Sep-16</td>\n",
-       "      <td>2016</td>\n",
-       "      <td>Unprovoked</td>\n",
-       "      <td>AUSTRALIA</td>\n",
-       "      <td>Victoria</td>\n",
-       "      <td>Thirteenth Beach</td>\n",
-       "      <td>Surfing</td>\n",
-       "      <td>Struck by fin on chest &amp; leg</td>\n",
-       "      <td>N</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <td>4</td>\n",
-       "      <td>16-Sep-16</td>\n",
-       "      <td>2016</td>\n",
-       "      <td>Unprovoked</td>\n",
-       "      <td>AUSTRALIA</td>\n",
-       "      <td>Victoria</td>\n",
-       "      <td>Bells Beach</td>\n",
-       "      <td>Surfing</td>\n",
-       "      <td>No injury: Knocked off board by shark</td>\n",
-       "      <td>N</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <td>...</td>\n",
-       "      <td>...</td>\n",
-       "      <td>...</td>\n",
-       "      <td>...</td>\n",
-       "      <td>...</td>\n",
-       "      <td>...</td>\n",
-       "      <td>...</td>\n",
-       "      <td>...</td>\n",
-       "      <td>...</td>\n",
-       "      <td>...</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <td>5987</td>\n",
-       "      <td>Before 1903</td>\n",
-       "      <td>0</td>\n",
-       "      <td>Unprovoked</td>\n",
-       "      <td>AUSTRALIA</td>\n",
-       "      <td>Western Australia</td>\n",
-       "      <td>Roebuck Bay</td>\n",
-       "      <td>Diving</td>\n",
-       "      <td>FATAL</td>\n",
-       "      <td>Y</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <td>5988</td>\n",
-       "      <td>Before 1903</td>\n",
-       "      <td>0</td>\n",
-       "      <td>Unprovoked</td>\n",
-       "      <td>AUSTRALIA</td>\n",
-       "      <td>Western Australia</td>\n",
-       "      <td>NaN</td>\n",
-       "      <td>Pearl diving</td>\n",
-       "      <td>FATAL</td>\n",
-       "      <td>Y</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <td>5989</td>\n",
-       "      <td>1900-1905</td>\n",
-       "      <td>0</td>\n",
-       "      <td>Unprovoked</td>\n",
-       "      <td>USA</td>\n",
-       "      <td>North Carolina</td>\n",
-       "      <td>Ocracoke Inlet</td>\n",
-       "      <td>Swimming</td>\n",
-       "      <td>FATAL</td>\n",
-       "      <td>Y</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <td>5990</td>\n",
-       "      <td>1883-1889</td>\n",
-       "      <td>0</td>\n",
-       "      <td>Unprovoked</td>\n",
-       "      <td>PANAMA</td>\n",
-       "      <td>NaN</td>\n",
-       "      <td>Panama Bay 8ºN, 79ºW</td>\n",
-       "      <td>NaN</td>\n",
-       "      <td>FATAL</td>\n",
-       "      <td>Y</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <td>5991</td>\n",
-       "      <td>1845-1853</td>\n",
-       "      <td>0</td>\n",
-       "      <td>Unprovoked</td>\n",
-       "      <td>CEYLON (SRI LANKA)</td>\n",
-       "      <td>Eastern Province</td>\n",
-       "      <td>Below the English fort, Trincomalee</td>\n",
-       "      <td>Swimming</td>\n",
-       "      <td>FATAL. \"Shark bit him in half, carrying away t...</td>\n",
-       "      <td>Y</td>\n",
-       "    </tr>\n",
-       "  </tbody>\n",
-       "</table>\n",
-       "<p>5992 rows × 9 columns</p>\n",
-       "</div>"
-      ],
-      "text/plain": [
-       "             Date  Year        Type             Country               Area  \\\n",
-       "0       18-Sep-16  2016  Unprovoked                 USA            Florida   \n",
-       "1       18-Sep-16  2016  Unprovoked                 USA            Florida   \n",
-       "2       18-Sep-16  2016  Unprovoked                 USA            Florida   \n",
-       "3       17-Sep-16  2016  Unprovoked           AUSTRALIA           Victoria   \n",
-       "4       16-Sep-16  2016  Unprovoked           AUSTRALIA           Victoria   \n",
-       "...           ...   ...         ...                 ...                ...   \n",
-       "5987  Before 1903     0  Unprovoked           AUSTRALIA  Western Australia   \n",
-       "5988  Before 1903     0  Unprovoked           AUSTRALIA  Western Australia   \n",
-       "5989    1900-1905     0  Unprovoked                 USA     North Carolina   \n",
-       "5990    1883-1889     0  Unprovoked              PANAMA                NaN   \n",
-       "5991    1845-1853     0  Unprovoked  CEYLON (SRI LANKA)   Eastern Province   \n",
-       "\n",
-       "                                 Location      Activity  \\\n",
-       "0        New Smyrna Beach, Volusia County       Surfing   \n",
-       "1        New Smyrna Beach, Volusia County       Surfing   \n",
-       "2        New Smyrna Beach, Volusia County       Surfing   \n",
-       "3                        Thirteenth Beach       Surfing   \n",
-       "4                             Bells Beach       Surfing   \n",
-       "...                                   ...           ...   \n",
-       "5987                          Roebuck Bay        Diving   \n",
-       "5988                                  NaN  Pearl diving   \n",
-       "5989                       Ocracoke Inlet      Swimming   \n",
-       "5990                 Panama Bay 8ºN, 79ºW           NaN   \n",
-       "5991  Below the English fort, Trincomalee      Swimming   \n",
-       "\n",
-       "                                                 Injury Fatal (Y/N)  \n",
-       "0                                 Minor injury to thigh           N  \n",
-       "1                                  Lacerations to hands           N  \n",
-       "2                              Lacerations to lower leg           N  \n",
-       "3                          Struck by fin on chest & leg           N  \n",
-       "4                 No injury: Knocked off board by shark           N  \n",
-       "...                                                 ...         ...  \n",
-       "5987                                              FATAL           Y  \n",
-       "5988                                              FATAL           Y  \n",
-       "5989                                              FATAL           Y  \n",
-       "5990                                              FATAL           Y  \n",
-       "5991  FATAL. \"Shark bit him in half, carrying away t...           Y  \n",
-       "\n",
-       "[5992 rows x 9 columns]"
-      ]
-     },
-     "execution_count": 11,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "df"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 28,
    "metadata": {},
    "outputs": [
     {
@@ -602,14 +339,60 @@
        "      dtype=object)"
       ]
      },
-     "execution_count": 12,
+     "execution_count": 28,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "df.Injury.unique()"
+    "#df.drop(['Case Number', 'Name', 'Sex ', 'Species ', 'pdf', 'href formula', 'href'], axis=1, inplace=True)\n",
+    "#df.drop(['Case Number.1', 'Case Number.2', 'original order', 'Unnamed: 22', 'Unnamed: 23'], axis=1, inplace=True)\n",
+    "#df.drop(['Time', 'Investigator or Source', 'Age'], axis=1, inplace=True)\n",
+    "\n",
+    "df.Injury.unique()\n",
+    "\n",
+    "df.loc[df.trany.str.lower().str.contains('fatal').fillna(False), 'typeofinjury']='fatal'"
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['Case Number', 'Date', 'Year', 'Type', 'Country', 'Area', 'Location', 'Activity', 'Name', 'Sex', 'Age', 'Injury', 'Fatal (Y/N)', 'Time', 'Species', 'Investigator or Source', 'pdf', 'href formula', 'href', 'Case Number.1', 'Case Number.2', 'original order', 'Unnamed: 22', 'Unnamed: 23']\n"
+     ]
+    }
+   ],
+   "source": [
+    "cols=[]\n",
+    "#remove spaces at the start and end of column names\n",
+    "for i in df.columns:\n",
+    "    if i.endswith(' ') or i.startswith(' '):\n",
+    "        cols.append(i.rstrip())\n",
+    "    else:\n",
+    "        cols.append(i)\n",
+    "        \n",
+    "print(cols)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['Case Number', 'Date', 'Year', 'Type', 'Country', 'Area', 'Location', 'Activity', 'Name', 'Sex', 'Age', 'Injury', 'Fatal (Y/N)', 'Time', 'Species', 'Investigator or Source', 'pdf', 'href formula', 'href', 'Case Number.1', 'Case Number.2', 'original order', 'Unnamed: 22', 'Unnamed: 23']\n"
+     ]
+    }
+   ],
+   "source": []
   },
   {
    "cell_type": "code",
